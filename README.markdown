@@ -1,6 +1,6 @@
 # Estação de Alerta de Enchente 🚨
 
-![Raspberry Pi Pico](https://img.shields.io/badge/Raspberry%20Pi-Pico-blue) ![FreeRTOS](https://img.shields.io/badge/FreeRTOS-v10.4.3-green) ![License](https://img.shields.io/badge/License-Educational-orange)
+![Raspberry Pi Pico](https://img.shields.io/badge/Raspberry%20Pi-Pico-blue) ![FreeRTOS](https://img.shields.io/badge/FreeRTOS-v10.4.3-green)
 
 ## 🎯 Objetivo Geral
 A estação de alerta de enchente é um sistema embarcado que simula uma estação de monitoramento de enchentes usando a **Raspberry Pi Pico (RP2040)** e **FreeRTOS** 🌟. Ele lê dados de um joystick analógico para simular níveis de água e volume de chuva, exibindo alertas visuais em um display OLED SSD1306, LEDs RGB, e uma matriz de LEDs WS2812B, além de alertas sonoros via buzzer 🎶. A comunicação entre tarefas é feita exclusivamente por filas, garantindo modularidade e eficiência ⚙️.
