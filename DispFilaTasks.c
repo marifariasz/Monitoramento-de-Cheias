@@ -195,7 +195,7 @@ void vDisplayTask(void *params)
 
                 // Limpa o display
                 ssd1306_fill(&ssd, false);
-                ssd1306_draw_string(&ssd, "ATENCAO", 30, 8); // Rótulo na linha 1
+                ssd1306_draw_string(&ssd, "ATENCAO", 35, 8); // Rótulo na linha 1
                 // Exibe Nível da água (rótulo e valor em linhas separadas)
                 ssd1306_draw_string(&ssd, "Nivel da agua", 15, 30); // Rótulo na linha 1
                 snprintf(buffer, sizeof(buffer), "%u%%", per_x);
