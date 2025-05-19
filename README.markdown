@@ -134,6 +134,4 @@ O sistema interpreta os eixos X e Y do joystick como "Nível da água" e "Volume
    - **Condição 2**: Alto volume → 🔴 LED vermelho, 🎶 3000 Hz, ❗ Exclamação.
    - **Condição 3**: Ambos altos → 🔴 LED vermelho, 🎶 4000 Hz, ❗ Exclamação.
    - **Normal**: 🟢 LED verde, matriz limpa.
-3. **Modo BOOTSEL** 🔄: Pressione o botão no GPIO 6.                         |
-
----
+3. **Modo BOOTSEL** 🔄: Pressione o botão no GPIO 6.
