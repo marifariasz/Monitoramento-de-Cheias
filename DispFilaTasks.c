@@ -191,7 +191,7 @@ void vDisplayTask(void *params)
             uint16_t per_y = (joydata.y_pos * 100) / 4095;
 
 
-            if(joydata.x_pos >= 2866){
+            if(joydata.x_pos >= 2866 && joydata.y_pos < 3276){
 
                 // Limpa o display
                 ssd1306_fill(&ssd, false);
@@ -202,19 +202,35 @@ void vDisplayTask(void *params)
                 ssd1306_draw_string(&ssd, buffer, 50, 42); // Valor na linha 2
                 // Envia os dados para o display
                 ssd1306_send_data(&ssd);
-            }else if(joydata.y_pos >= 3276){
+            }else if(joydata.x_pos < 2866 && joydata.y_pos >= 3276){
                 // Limpa o display
                 ssd1306_fill(&ssd, false);
-                ssd1306_draw_string(&ssd, "ATENCAO", 30, 8); // Rótulo na linha 1
+                ssd1306_draw_string(&ssd, "ATENCAO", 35, 8); // Rótulo na linha 1
                 // Exibe Volume de chuva (rótulo e valor em linhas separadas)
                 ssd1306_draw_string(&ssd, "Volume de chuva", 4, 30); // Rótulo na linha 3
                 snprintf(buffer, sizeof(buffer), "%u%%", per_y);
                 ssd1306_draw_string(&ssd, buffer, 50, 42); // Valor na linha 4
                 // Envia os dados para o display
                 ssd1306_send_data(&ssd);
+            }else if(joydata.x_pos >= 2866 && joydata.y_pos >= 3276){
+                // Limpa o display
+                ssd1306_fill(&ssd, false);
+                // Exibe as strings centralizadas com posições x calculadas manualmente
+                ssd1306_draw_string(&ssd, "ATENCAO", 35, 5); // Rótulo na linha 1
+
+                // Nível da água
+                ssd1306_draw_string(&ssd, "Nivel da agua", 15, 20); // Rótulo na linha 1
+                snprintf(buffer, sizeof(buffer), "%u%%", per_x);
+                ssd1306_draw_string(&ssd, buffer, 52, 28); // Valor na linha 2
+
+                // Volume de chuva
+                ssd1306_draw_string(&ssd, "Volume de chuva", 4, 40); // Rótulo na linha 3
+                snprintf(buffer, sizeof(buffer), "%u%%", per_y);
+                ssd1306_draw_string(&ssd, buffer, 52, 48); // Valor na linha 4
+                // Envia os dados para o display
+                ssd1306_send_data(&ssd);
             }
             else{
-                // Calcula valores em porcentagem
 
                 // Limpa o display
                 ssd1306_fill(&ssd, false);
@@ -288,17 +304,18 @@ void vBuzzerTask(void *params)
     {
         if (xQueueReceive(xQueueJoystickData, &joydata, portMAX_DELAY) == pdTRUE)
         {
-            if(joydata.x_pos >= 2866){
+            if(joydata.x_pos >= 2866 && joydata.y_pos < 3276){
                 play_buzzer(BUZZER, 2000, 100);
+            }else if(joydata.x_pos < 2866 && joydata.y_pos >= 3276){
+                play_buzzer(BUZZER, 3000, 100);
             }
-            else if(joydata.y_pos >= 3276){
-                play_buzzer(BUZZER, 3000, 200);
+            else if(joydata.x_pos >= 2866 && joydata.y_pos >= 3276){
+                play_buzzer(BUZZER, 4000, 200);
             }
         }
         vTaskDelay(pdMS_TO_TICKS(50)); // Atualiza a cada 50ms
     }
 }
-
 
 void vMatrizTask(void *params){
     npInit(LED_PIN);
