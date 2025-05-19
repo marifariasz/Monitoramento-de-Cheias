@@ -17,13 +17,13 @@ O sistema interpreta os eixos X e Y do joystick como "Nível da água" e "Volume
 
 ### 📺 Display OLED SSD1306
 - **Tarefa**: `vDisplayTask`
-- Exibe informações no display (128x64, I2C, endereço 0x3C) com texto centralizado manualmente.
+- Exibe informações no display (128x64, I2C, endereço 0x3C).
 - **Condições de Exibição**:
   | Condição | Eixo X | Eixo Y | Exibição no Display |
   |----------|--------|--------|---------------------|
   | 1️⃣ | ≥ 2866 | < 3276 | "ATENÇÃO" + "Nível da água" (%). |
   | 2️⃣ | < 2866 | ≥ 3276 | "ATENÇÃO" + "Volume de chuva" (%). |
-  | 3️⃣ | ≥ 2866 | ≥ 3276 | "ATENÇÃO", "Nível da água" e "Volume de chuva" centralizados. |
+  | 3️⃣ | ≥ 2866 | ≥ 3276 | "ATENÇÃO", "Nível da água" e "Volume de chuva". |
   | 🟢 Normal | Outros | Outros | "Nível da água" e "Volume de chuva" sem alerta. |
 
 ### 💡 LEDs RGB
@@ -130,9 +130,9 @@ O sistema interpreta os eixos X e Y do joystick como "Nível da água" e "Volume
 1. **Carregue o Firmware** 💾: Use o modo BOOTSEL.
 2. **Interaja com o Joystick** 🕹️:
    - Mova o joystick para simular "Nível da água" (X) e "Volume de chuva" (Y).
-   - **Condição 1**: Alto nível → 🔴 LED vermelho, 🎶 2000 Hz, ➡️ Seta.
+   - **Condição 1**: Alto nível → 🔴 LED vermelho, 🎶 2000 Hz, ❗ Exclamação.
    - **Condição 2**: Alto volume → 🔴 LED vermelho, 🎶 3000 Hz, ❗ Exclamação.
-   - **Condição 3**: Ambos altos → 🔴 LED vermelho, 🎶 4000 Hz, ❌ X, texto centralizado.
+   - **Condição 3**: Ambos altos → 🔴 LED vermelho, 🎶 4000 Hz, ❗ Exclamação.
    - **Normal**: 🟢 LED verde, matriz limpa.
 3. **Modo BOOTSEL** 🔄: Pressione o botão no GPIO 6.                         |
 
