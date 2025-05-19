@@ -1,9 +1,9 @@
-# 🌊 FloodGuard: Estação de Alerta de Enchente 🚨
+# Estação de Alerta de Enchente 🚨
 
 ![Raspberry Pi Pico](https://img.shields.io/badge/Raspberry%20Pi-Pico-blue) ![FreeRTOS](https://img.shields.io/badge/FreeRTOS-v10.4.3-green) ![License](https://img.shields.io/badge/License-Educational-orange)
 
 ## 🎯 Objetivo Geral
-O **FloodGuard** é um sistema embarcado que simula uma estação de monitoramento de enchentes usando a **Raspberry Pi Pico (RP2040)** e **FreeRTOS** 🌟. Ele lê dados de um joystick analógico para simular níveis de água e volume de chuva, exibindo alertas visuais em um display OLED SSD1306, LEDs RGB, e uma matriz de LEDs WS2812B, além de alertas sonoros via buzzer 🎶. A comunicação entre tarefas é feita exclusivamente por filas, garantindo modularidade e eficiência ⚙️.
+A estação de alerta de enchente é um sistema embarcado que simula uma estação de monitoramento de enchentes usando a **Raspberry Pi Pico (RP2040)** e **FreeRTOS** 🌟. Ele lê dados de um joystick analógico para simular níveis de água e volume de chuva, exibindo alertas visuais em um display OLED SSD1306, LEDs RGB, e uma matriz de LEDs WS2812B, além de alertas sonoros via buzzer 🎶. A comunicação entre tarefas é feita exclusivamente por filas, garantindo modularidade e eficiência ⚙️.
 
 ---
 
@@ -39,9 +39,7 @@ O sistema interpreta os eixos X e Y do joystick como "Nível da água" e "Volume
 - **Padrões Visuais**:
   | Padrão | Descrição | Condição |
   |--------|-----------|----------|
-  | ➡️ Seta Verde | Sinal de operação normal | X < 2866 e Y < 3276 |
-  | ❗ Exclamação Amarela | Alerta moderado | X ≥ 2866 ou Y ≥ 3276 |
-  | ❌ X Vermelho | Alerta crítico | X ≥ 2866 e Y ≥ 3276 |
+  | ❗ Exclamação Amarela | Alerta | X ≥ 2866 ou Y ≥ 3276 |
 
 ### 🎵 Buzzer
 - **Tarefa**: `vBuzzerTask`
@@ -67,13 +65,6 @@ O sistema interpreta os eixos X e Y do joystick como "Nível da água" e "Volume
 | **GPIO** | LEDs RGB, botão | GPIO 11, 12, 13, 6 |
 | **PWM** | Som no buzzer | GPIO 21 |
 | **PIO** | Controla WS2812B | GPIO 7 |
-
-### 📝 Destaques do Código
-- **Filas FreeRTOS** 📬: Fila `xQueueJoystickData` (5 itens, tipo `joystick_data_t`) conecta todas as tarefas.
-- **Centralização no OLED** 🎨: Texto centralizado manualmente (ex.: "ATENÇÃO" em x=43, calculado como `(128 - 7*6)/2`).
-- **Matriz WS2812B** 🟥🟩: Padrões visuais definidos em `digits`, controlados via PIO.
-- **Modularidade** 🧩: Tarefas independentes, código comentado e indentado.
-- **Criatividade** ✨: Padrões visuais intuitivos na matriz e sons diferenciados no buzzer.
 
 ---
 
@@ -136,41 +127,13 @@ O sistema interpreta os eixos X e Y do joystick como "Nível da água" e "Volume
 ---
 
 ## 🚀 Como Usar
-1. **Monte o Circuito** 🔌: Conecte conforme a tabela.
-2. **Carregue o Firmware** 💾: Use o modo BOOTSEL.
-3. **Interaja com o Joystick** 🕹️:
+1. **Carregue o Firmware** 💾: Use o modo BOOTSEL.
+2. **Interaja com o Joystick** 🕹️:
    - Mova o joystick para simular "Nível da água" (X) e "Volume de chuva" (Y).
    - **Condição 1**: Alto nível → 🔴 LED vermelho, 🎶 2000 Hz, ➡️ Seta.
    - **Condição 2**: Alto volume → 🔴 LED vermelho, 🎶 3000 Hz, ❗ Exclamação.
    - **Condição 3**: Ambos altos → 🔴 LED vermelho, 🎶 4000 Hz, ❌ X, texto centralizado.
    - **Normal**: 🟢 LED verde, matriz limpa.
-4. **Modo BOOTSEL** 🔄: Pressione o botão no GPIO 6.
+3. **Modo BOOTSEL** 🔄: Pressione o botão no GPIO 6.                         |
 
 ---
-
-## 📊 Critérios de Avaliação
-| Critério                     | Peso | Descrição                                                                 | Atendimento                                                                 |
-|------------------------------|------|---------------------------------------------------------------------------|-----------------------------------------------------------------------------|
-| Funcionamento geral          | 30%  | Sistema funcional, cumpre objetivos.                                      | Lê joystick, exibe alertas, controla LEDs e buzzer corretamente.            |
-| Organização do código        | 15%  | Código estruturado, comentado, indentado.                                 | Modular, com comentários claros e indentação consistente.                  |
-| Implementação técnica        | 15%  | Uso adequado de ADC, I2C, PWM, PIO, FreeRTOS.                             | Recursos usados eficientemente, com filas.                                 |
-| Criatividade                 | 15%  | Representação criativa no display, matriz e LEDs.                         | Padrões visuais (seta, exclamação, X) e sons diferenciados.                |
-| Apresentação em vídeo        | 15%  | Clareza e demonstração do funcionamento.                                  | (A ser fornecido pelo aluno.)                                              |
-| Ficha da tarefa              | 10%  | Clareza e coerência na apresentação.                                      | README detalhado e funcional.                                              |
-
----
-
-## 🔗 Links
-- **Código**: [Link para o repositório, a ser fornecido pelo aluno]
-- **Reflection**: [Link para o reflection, a ser fornecido pelo aluno]
-
----
-
-## 📜 Licença
-Desenvolvido por **José Silva e Silva** para a disciplina **37M3SE - U1C2**, Polo Bom Jesus da Lapa. Uso educacional com atribuição ao autor. 📝
-
-## 📬 Contato
-- **Nome**: José Silva e Silva
-- **Data**: 10/04/2025
-- **Polo**: Bom Jesus da Lapa
-- **Emoji**: 🌟
